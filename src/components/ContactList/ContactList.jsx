@@ -1,7 +1,13 @@
+import { useSelector } from 'react-redux';
 import React from 'react';
 import { ButtonDelete, Title, ListItem } from './ContactList.syled';
 
-export const ContactList = ({ contacts, onDelete }) => {
+export const ContactList = () => {
+  const deletButtonHandler = e => {
+    console.log(e);
+  };
+
+  const contacts = useSelector(state => state.contacts.contacts);
   return (
     <div>
       <Title>Contacts</Title>
@@ -9,8 +15,7 @@ export const ContactList = ({ contacts, onDelete }) => {
         {contacts.map(({ id, name, number }) => (
           <ListItem key={id}>
             {name}: {number}
-            <ButtonDelete onClick={() => onDelete(id)} type="button">
-              {' '}
+            <ButtonDelete onClick={() => deletButtonHandler()} type="button">
               Delete
             </ButtonDelete>
           </ListItem>
@@ -19,3 +24,5 @@ export const ContactList = ({ contacts, onDelete }) => {
     </div>
   );
 };
+
+// onClick={() => onDelete(id)}
