@@ -1,11 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import { ButtonDelete, Title, ListItem } from './ContactList.syled';
+import { deleteContact } from 'components/redux/ContactsSlice';
 
 export const ContactList = () => {
-  const deletButtonHandler = e => {
-    console.log(e);
-  };
+  // const deletButtonHandler = e => {
+  //   console.log(e);
+  // };
+
+  const dispatch = useDispatch();
 
   const contacts = useSelector(state => state.contacts.contacts);
   return (
@@ -15,7 +18,10 @@ export const ContactList = () => {
         {contacts.map(({ id, name, number }) => (
           <ListItem key={id}>
             {name}: {number}
-            <ButtonDelete onClick={() => deletButtonHandler()} type="button">
+            <ButtonDelete
+              onClick={() => dispatch(deleteContact(id))}
+              type="button"
+            >
               Delete
             </ButtonDelete>
           </ListItem>
