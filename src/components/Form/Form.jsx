@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { ContainerForm, Input, Button, Title } from './Form.styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'components/redux/ContactsSlice';
 
 export const Form = () => {
-  const [name, setName] = useState('');
+  const [name, setContactName] = useState('');
   const [number, setNumber] = useState('');
 
+  const contacts = useSelector(state => state.contacts.contacts);
   const dispatch = useDispatch();
 
   const nameInputId = nanoid();
@@ -16,7 +17,7 @@ export const Form = () => {
   const handleChange = evt => {
     const { name, value } = evt.currentTarget;
     if (name === 'name') {
-      setName(value);
+      setContactName(value);
     }
     if (name === 'number') {
       setNumber(value);
@@ -25,12 +26,18 @@ export const Form = () => {
 
   const handleSubmitt = evt => {
     evt.preventDefault();
-    dispatch(addContact(name, number));
+    const allContactNames = contacts.map(contact => contact.name);
+    if (allContactNames.includes(name)) {
+      alert(`${name} already in your contact list`);
+    } else {
+      dispatch(addContact(name, number));
+    }
+
     reset();
   };
 
   const reset = () => {
-    setName('');
+    setContactName('');
     setNumber('');
   };
 

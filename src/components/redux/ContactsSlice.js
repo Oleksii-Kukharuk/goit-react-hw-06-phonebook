@@ -21,15 +21,7 @@ const contactSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
-        if (
-          state.contacts.map(contact =>
-            contact.name.includes(action.payload.name)
-          )
-        ) {
-          alert('waba-laba-dab-dab this contact already in your Phonebook');
-        } else {
-          state.contacts.push(action.payload);
-        }
+        state.contacts.push(action.payload);
       },
       prepare(name, number) {
         return {
@@ -43,8 +35,9 @@ const contactSlice = createSlice({
     },
     deleteContact: {
       reducer(state, action) {
-        state.contacts.filter(contact => contact.id !== action.payload.id);
-        console.log(action.payload.id);
+        state.contacts = state.contacts.filter(
+          contact => contact.id !== action.payload.id
+        );
       },
       prepare(id) {
         return {

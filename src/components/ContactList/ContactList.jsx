@@ -4,10 +4,6 @@ import { ButtonDelete, Title, ListItem } from './ContactList.syled';
 import { deleteContact } from 'components/redux/ContactsSlice';
 
 export const ContactList = () => {
-  // const deletButtonHandler = e => {
-  //   console.log(e);
-  // };
-
   const dispatch = useDispatch();
 
   const contacts = useSelector(state => state.contacts.contacts);
