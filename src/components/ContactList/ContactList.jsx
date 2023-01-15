@@ -7,11 +7,21 @@ export const ContactList = () => {
   const dispatch = useDispatch();
 
   const contacts = useSelector(state => state.contacts.contacts);
+  const filterQuery = useSelector(state => state.filter);
+
+  const filteredContacts = () => {
+    const normalizedFilter = filterQuery.toLowerCase();
+    const filtred = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+    return filtred;
+  };
+
   return (
     <div>
       <Title>Contacts</Title>
       <ul>
-        {contacts.map(({ id, name, number }) => (
+        {filteredContacts().map(({ id, name, number }) => (
           <ListItem key={id}>
             {name}: {number}
             <ButtonDelete

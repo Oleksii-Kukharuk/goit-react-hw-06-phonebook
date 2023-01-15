@@ -16,7 +16,6 @@ const contactSlice = createSlice({
   name: 'contacts',
   initialState: {
     contacts: contactInitialState,
-    filter: '',
   },
   reducers: {
     addContact: {
